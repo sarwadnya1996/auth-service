@@ -15,8 +15,6 @@ public class JwtService {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration.ms}")
-    private Long expiry;
 
     private static final String ISSUER = "AUTH-SERVICE";
 
@@ -28,7 +26,7 @@ public class JwtService {
                     .withIssuer(ISSUER)
                     .withSubject(tokenDetail.getAuthRequest().getUserName())
                     .withIssuedAt(new Date())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + expiry)) // 1 hour
+                    .withExpiresAt(new Date(System.currentTimeMillis() + 300000)) //
                     .sign(algorithm);
 
         } catch (JWTCreationException exception) {
